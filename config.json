@@ -1,38 +1,35 @@
 {
   "squares": [
-    { "name": "media", "links": [
-        { "name": "Spotify", "url": "https://open.spotify.com/" },
-        { "name": "YoutubeMusic", "url": "https://music.youtube.com/" },
+    { "name": "Media", "links": [
+        { "name": "Youtube", "url": "https://youtube.com/" },
         { "name": "Netflix", "url": "https://netflix.com" },
-        { "name": "Youtube", "url": "https://youtube.com" }
+        { "name": "Disney+", "url": "https://disneyplus.com" },
+        { "name": "Prime", "url": "https://www.primevideo.com/" },
+        { "name": "Twitch", "url": "https://www.twitch.tv/" }
       ]
     },
-    { "name": "work", "links": [
+    { "name": "Social", "links": [
+        { "name": "Google", "url": "https://google.com" },
+        { "name": "Twitter", "url": "https://twitter.com/home" },
+        { "name": "Whatsapp", "url": "https://web.whatsapp.com/" },
+        { "name": "LinkedIn", "url": "https://www.linkedin.com/feed/" },
+        { "name": "Reddit", "url": "https://reddit.com" }
+      ]
+    },
+    { "name": "Trabajo", "links": [
         { "name": "Github", "url": "https://github.com" },
-        { "name": "Heroku", "url": "http://heroku.com/" },
-        { "name": "localhost", "url": "http://localhost:8000/" }
-      ]
-    },
-    { "name": "social", "links": [
-        { "name": "Reddit", "url": "https://reddit.com" },
-        { "name": "Unixporn Love", "url": "https://deepjyoti30.github.io/unixporn-love/" },
-        { "name": "r/unixporn", "url": "https://www.reddit.com/r/unixporn/" },
-        { "name": "r/mk", "url": "https://www.reddit.com/r/MechanicalKeyboards/" }
-      ]
-    },
-    {
-      "name": "Others", "links": [
-        {"name": "Material Colors", "url": "http://materialuicolors.co/"},
-        {"name": "Gmail", "url": "http://gmail.com/"},
-        {"name": "neo4j Local", "url": "http://localhost:7474/"},
-        {"name": "rarbg", "url": "http://rarbg.to"}
+        { "name": "Jira", "url": "https://tangelogames.atlassian.net/jira/servicedesk/projects/ISD/queues/custom/12" },
+        { "name": "Confluence", "url": "https://tangelogames.atlassian.net/wiki/home" },
+        { "name": "Bamboo", "url": "https://tangelogames.bamboohr.com/login.php?r=%2Fhome%2F" },
+        { "name": "Admin GSuite", "url": "https://admin.google.com/u/1/?hl=es" }
       ]
     }
   ],
-  "searchEngine":"DuckDuckGo",
-  "user": "Deepjyoti",
+  "searchEngine":"Google",
+  "user": "Akapad",
   "disableMessage": false,
-  "disableDate": false,
+  "disableDate": true,
   "disableSearchBar": false,
-  "disable24Hour": false
+  "disable24Hour": true,
+  "language": "es"
 }

@@ -49,7 +49,7 @@ function initSearchBar(jsonData) {
         searchEngine = "Google"
     }
     searchUrl = this.searchEngines[searchEngine]
-    document.getElementById(searchBarId).placeholder = `Search something on ${searchEngine}`
+    document.getElementById(searchBarId).placeholder = `¿Que vas a buscar hoy en ${searchEngine}?`
     document.getElementById(searchBarId).addEventListener("keypress", (event) => {
         if (event.key != 'Enter') return
 
@@ -84,17 +84,23 @@ function buildMsg() {
     currentTime = currentHour + (0.01 * currentMinute)
 
     if (inRange(currentTime, 0, 5.59))
-        return "It's too late, take some sleep"
+        return "¿No es demasiado tarde ya? ¡Vete a dormir anda!"
+        //return "It's too late, take some sleep"
     if (inRange(currentTime, 6, 8.59))
-        return "You're up early"
+        return "¡Madre mia! Que madrugador..."
+        //return "You're up early"
     if (inRange(currentTime, 9, 11.59))
-        return "Have a good day ahead"
+        return "¡Venga animo que hoy va a ser un gran dia!"
+        //return "Have a good day ahead"
     if (inRange(currentTime, 12, 16.59))
-        return "Good Afternoon"
+        return "¡Buenas tardes tenga usted!"
+        //return "Good Afternoon"
     if (inRange(currentTime, 17, 19.59))
-        return "Good Evening"
+        return "Ya deberias haber acabado de currar, ves a viciar anda."
+        //return "Good Evening"
     if (inRange(currentTime, 20, 24))
-        return "It's time to wrap up for the day"
+        return "¡Bueno pues ale, ya se ha acabado el dia!"
+        //return "It's time to wrap up for the day"
     else
         return ""
 }
@@ -137,7 +143,7 @@ function parseAndCreate(jsonData) {
     // Build a message for the user
     builtMsg = buildMsg()
     builtMsg == "" ? 
-        builtMsg = `Hello ${this.userName}` : builtMsg = `Hey ${this.userName}, ${builtMsg}!`
+        builtMsg = `Hola ${this.userName}` : builtMsg = `Hola ${this.userName}, ${builtMsg}`
     document.getElementById(messageId).textContent = builtMsg
     // Check if 24 hour is disabled
     disable24Hour = jsonData["disable24Hour"]
