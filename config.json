@@ -30,6 +30,15 @@
   "disableMessage": false,
   "disableDate": true,
   "disableSearchBar": false,
+<<<<<<< HEAD
   "disable24Hour": true,
   "language": "es"
+=======
+  "disable24Hour": false,
+  "disableWeather": true,
+  "weatherConf": {
+    "location": "Pune India",
+    "unit": "cel"
+  }
+>>>>>>> 21fb6ec09138823196f92c469e80b18c8f9410a7
 }

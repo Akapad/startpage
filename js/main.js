@@ -7,10 +7,14 @@ searchBarId = "search-bar-input"
 messageDivId = "message"
 dateDivId = "date"
 dateId = "date-text"
+weatherId = "weather-text"
+lineId = "line"
 messageId = "message-text"
 otherContentId = "other-content"
-userName = "Deepjyoti"
+userName = ""
 disable24Hour = false;
+appId = "fd2c04ed7f9802656bd2cc23bddc7ad9"
+apiUrl = "http://api.openweathermap.org/data/2.5/weather"
 bgClassContainer = [
     "media",
     "work",
@@ -26,8 +30,12 @@ searchEngines = {
     "Google": "https://www.google.com/search?q=",
     "DuckDuckGo": "https://duckduckgo.com/?q=",
     "Bing": "https://www.bing.com/search?q=",
-    "Yahoo": "https://search.yahoo.com/search?p="
+    "Yahoo": "https://search.yahoo.com/search?p=",
+    "Ecosia": "https://www.ecosia.org/search?q="
 }
+validWeatherUnit = [
+    "fah", "cel"
+]
 
 function initBody() {
     /**
@@ -37,7 +45,9 @@ function initBody() {
      * other things.
      */
     // Read the json file
-    json = readJSON("config.json")
+    BROWSER.storage.sync.get(result => {
+        Object.keys(result).length == 0 ? readJSON("config.json") : parseAndCreate(result)
+    })
 }
 
 function initSearchBar(jsonData) {
@@ -121,6 +131,42 @@ function updateTimeHook() {
     }, 30 * 1000)
 }
 
+function getFahrenheit(inCelcius) {
+    return Math.floor((inCelcius * 9 / 5) + 32)
+}
+
+function indexUppercase(unformatted) {
+    return unformatted.split(" ").map(w => {
+        return w[0].toUpperCase() + w.substring(1)
+    }).join(" ")
+}
+
+function updateWeather(weatherConfig) {
+    /**
+     * Get the weather using the location passed by the user using
+     * the config and update it in a formatted way according to
+     * the unit.
+     */
+    userLocation = weatherConfig["location"].replace(/\ /g, ",")
+    passedUnit = weatherConfig["unit"]
+    unit = validWeatherUnit.includes(passedUnit.substring(0, 3)) ?
+            passedUnit : "cel"
+
+    fetchUrl = apiUrl + `?q=${userLocation}&appid=${appId}&units=metric`
+
+    fetch(fetchUrl)
+        .then(response => {return response.json()})
+        .then(jsonData => {
+            temp = Math.floor(jsonData["main"]["temp"])
+            weatherType = jsonData["weather"][0]["main"]
+
+            temp = !unit.includes("cel") ?
+                        getFahrenheit(temp) + "&deg;F" : temp + "&deg;C"
+            weatherText = temp + ", " + indexUppercase(weatherType)
+            document.getElementById(weatherId).innerHTML = weatherText
+        })
+}
+
 function inRange(number, min, max) {
     return (number >= min && number <= max)
 }
@@ -131,7 +177,12 @@ function readJSON(fileName) {
         .then(response => {return response.json()})
         .then(jsonData => {
             parseAndCreate(jsonData)
+            saveSettings(jsonData)
         })
+}
+
+function saveSettings(settings) {
+    BROWSER.storage.sync.set(settings)
 }
 
 function parseAndCreate(jsonData) {
@@ -150,15 +201,24 @@ function parseAndCreate(jsonData) {
     // Check if welcome message is supposed to be disabled
     if (jsonData["disableMessage"])
         document.getElementById(messageDivId).style.display = "none"
-    if (jsonData["disableDate"])
-        document.getElementById(dateDivId).style.display = "none"
+    if (jsonData["disableDate"]) {
+        // Hide the date and the line
+        document.getElementById(dateId).style.display = "none"
+        document.getElementById(lineId).style.display = "none"
+    }
     else
         updateTimeHook()
+    if (jsonData["disableWeather"]){
+        // Hide the date and the line
+        document.getElementById(weatherId).style.display = "none"
+        document.getElementById(lineId).style.display = "none"
+    }
+    else
+        updateWeather(jsonData["weatherConf"])
     if (jsonData["disableSearchBar"])
         document.getElementById(searchBarDivId).style.display = "none"
     else
         initSearchBar(jsonData)
-
 
     sqrs = jsonData["squares"]
 
